@@ -1,11 +1,12 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import { useParams } from "react-router-dom";
 import Reviews from "../components/Reviews";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../store/features/productSlice";
+import toast from "react-hot-toast";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,17 +15,22 @@ function classNames(...classes) {
 export default function ProductPage() {
   const { id } = useParams();
 
+  const dispatch = useDispatch();
+
   const [product, setProduct] = useState({});
 
   useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
-      .then((data) => setProduct(data));
-  });
+      .then((data) => {
+        setProduct(data)
+        console.log(data);
+      });
+  }, [id]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  if (!product.images || !product.tags) {
+    return <div class="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>;
+  }  
 
   return (
     <div className="bg-white">
@@ -35,7 +41,7 @@ export default function ProductPage() {
             {/* Image selector */}
             <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
               <TabList className="grid grid-cols-4 gap-6">
-                {product.images.map((image, index) => (
+                {product?.images?.map((image, index) => (
                   <Tab
                     key={index}
                     className="group relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
@@ -58,7 +64,7 @@ export default function ProductPage() {
             </div>
 
             <TabPanels className="aspect-h-1 aspect-w-1 w-full">
-              {product.images.map((image, index) => (
+              {product?.images?.map((image, index) => (
                 <TabPanel key={index}>
                   <img
                     alt="image"
@@ -117,6 +123,10 @@ export default function ProductPage() {
             <div className="mt-10 flex">
               <button
                 type="submit"
+                onClick={() => {
+                  dispatch(addProduct(product))
+                  toast.success("Product added to bag")
+                }}
                 className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
               >
                 Add to bag
@@ -156,7 +166,7 @@ export default function ProductPage() {
             </section>
 
             <div className="flex flex-wrap items-center space-x-2 mt-8">
-              {product.tags.map((tag) => (
+              {product?.tags?.map((tag) => (
                 <p
                   key={tag}
                   className="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full"

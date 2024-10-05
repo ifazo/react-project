@@ -7,8 +7,13 @@ import {
   signInWithGoogle,
 } from "../lib/firebase";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/features/userSlice";
 
 export default function SignIn() {
+
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -25,7 +30,7 @@ export default function SignIn() {
     signIn(state.email, state.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Signed in successfully");
       })
       .catch((error) => {
@@ -44,7 +49,7 @@ export default function SignIn() {
     signInWithGoogle()
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Signed in successfully");
       })
       .catch((error) => {
@@ -58,7 +63,7 @@ export default function SignIn() {
     signInWithGithub()
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Signed in successfully");
       })
       .catch((error) => {

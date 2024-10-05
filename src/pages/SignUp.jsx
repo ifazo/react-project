@@ -2,8 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { signInWithGithub, signInWithGoogle, signUp } from "../lib/firebase";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/features/userSlice";
 
 export default function SignUp() {
+
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -20,7 +25,7 @@ export default function SignUp() {
       e.preventDefault();
       signUp(state.email, state.password).then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Account created successfully");
       })
       .catch((error) => {
@@ -34,7 +39,7 @@ export default function SignUp() {
       signInWithGoogle()
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Account created successfully");
       })
       .catch((error) => {
@@ -48,7 +53,7 @@ export default function SignUp() {
       signInWithGithub()
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        dispatch(setUser(user));
         toast.success("Account created successfully");
       })
       .catch((error) => {

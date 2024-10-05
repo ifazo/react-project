@@ -7,11 +7,19 @@ const productSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      state.products.push(action.payload);
+      const existingProduct = state.products.find(
+        (product) => product.id === action.payload.id,
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        state.products.push({ ...action.payload, quantity: 1 });
+      }
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
-        (product) => product.category !== action.payload.category,
+        (product) => product.id !== action.payload.id,
       );
     },
     clearProducts: (state) => {
