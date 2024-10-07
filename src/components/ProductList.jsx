@@ -6,6 +6,7 @@ function classNames(...classes) {
 }
 
 export default function ProductList({ products }) {
+  
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl overflow-hidden sm:px-6 lg:px-8">
@@ -23,7 +24,7 @@ export default function ProductList({ products }) {
               </div>
               <div className="pb-4 pt-10 text-center">
                 <h3 className="text-sm font-medium text-gray-900">
-                  <Link to={`/products/${product.id}`}>
+                  <Link to={`/products/${product._id}`}>
                     <span aria-hidden="true" className="absolute inset-0" />
                     {product.title}
                   </Link>
@@ -42,7 +43,7 @@ export default function ProductList({ products }) {
                       />
                     ))}
                   </div>
-                  <p className="mt-1 text-sm text-gray-500">{product.stock} reviews</p>
+                  <p className="mt-1 text-sm text-gray-500">{product.reviews.length} reviews</p>
                 </div>
                 <p className="mt-4 text-base font-medium text-gray-900">${product.price}</p>
               </div>

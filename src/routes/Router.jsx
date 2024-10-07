@@ -9,7 +9,8 @@ import ProductsPage from "../pages/ProductsPage";
 import ProductPage from "../pages/ProductPage";
 import CategoriesPage from "../pages/CategoriesPage";
 import DashboardPage from "../pages/DashboardPage";
-import CheckoutPage from "../pages/CheckoutPage";
+import SuccessPage from "../pages/SuccessPage";
+import CancelPage from "../pages/CancelPage";
 
 const router = createBrowserRouter([
     {
@@ -50,11 +51,15 @@ const router = createBrowserRouter([
                 path: "/dashboard",
                 element: <DashboardPage />
             },
-            {
-                path: "/dashboard/checkout",
-                element: <CheckoutPage />
-            }
         ]
+    },
+    {
+        path: "/success",
+        element: <SuccessPage />
+    },
+    {
+        path: "/cancel",
+        element: <CancelPage />
     },
     {
         path: "*",

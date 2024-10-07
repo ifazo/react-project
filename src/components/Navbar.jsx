@@ -161,7 +161,7 @@ export default function Navbar() {
                         <button
                           type="button"
                           onClick={handleSignOut}
-                          className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 w-full text-left"
                         >
                           Sign out
                         </button>

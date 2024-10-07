@@ -30,7 +30,7 @@ export default function BagModal({ open, setOpen, products }) {
   const handlePayment = async () => {
     const stripe = await stripePromise;
     
-    const response = await fetch('http://localhost:5000/api/payment', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export default function BagModal({ open, setOpen, products }) {
                           handlePayment();
                           setOpen(false);
                         }}
-                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                        className="w-full text-center flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                       >
                         Pay ${subTotal}
                       </button>

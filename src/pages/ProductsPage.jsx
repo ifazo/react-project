@@ -46,11 +46,11 @@ export default function ProductsPage() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products?limit=12&skip=12")
+    fetch(`${import.meta.env.VITE_API_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setProducts(data?.products);
+        setProducts(data);
       });
   }, []);
 
@@ -63,7 +63,9 @@ export default function ProductsPage() {
       });
   }, []);
 
-  if (!products) return <div class="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>;
+  if (!products.length) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-white">

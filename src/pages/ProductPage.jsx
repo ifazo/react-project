@@ -7,6 +7,7 @@ import Reviews from "../components/Reviews";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../store/features/productSlice";
 import toast from "react-hot-toast";
+import ProductShare from "../components/ProductShare";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,13 +19,13 @@ export default function ProductPage() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState({});
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data)
-        console.log(data);
       });
   }, [id]);
 
@@ -134,15 +135,18 @@ export default function ProductPage() {
 
               <button
                 type="button"
+                onClick={() => setOpen(true)}
                 className="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
               >
                 <ShareIcon
                   aria-hidden="true"
                   className="h-6 w-6 flex-shrink-0"
                 />
-                <span className="sr-only">Add to favorites</span>
+                <span className="sr-only">Share</span>
               </button>
             </div>
+
+            <ProductShare open={open} setOpen={setOpen} product={product} />
 
             {/* Product details */}
             <section aria-labelledby="details-heading" className="mt-12">
