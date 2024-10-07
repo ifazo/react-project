@@ -8,6 +8,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import ProductsPage from "../pages/ProductsPage";
 import ProductPage from "../pages/ProductPage";
 import CategoriesPage from "../pages/CategoriesPage";
+import DashboardPage from "../pages/DashboardPage";
+import CheckoutPage from "../pages/CheckoutPage";
 
 const router = createBrowserRouter([
     {
@@ -42,7 +44,17 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <DashboardPage />
+            },
+            {
+                path: "/dashboard/checkout",
+                element: <CheckoutPage />
+            }
+        ]
     },
     {
         path: "*",
