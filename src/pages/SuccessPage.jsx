@@ -142,7 +142,7 @@ const SuccessPage = () => {
   };
 
   const handleReturnHome = () => {
-    console.log("Navigating to home page");
+    window.location.href = '/'
   };
 
   return (

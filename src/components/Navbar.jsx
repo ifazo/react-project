@@ -14,35 +14,26 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import { getCurrentUser, signOut } from "../lib/firebase";
 import BagModal from "./BagModal";
 import { useSelector } from "react-redux";
 
 export default function Navbar() {
-  const [activeLink, setActiveLink] = useState("/");
   const [isBagOpen, setIsBagOpen] = useState(false);
   const [user, setUser] = useState(null);
-  // const user = useSelector((state) => state.user.user);
   const products = useSelector((state) => state.products.products);
   
-
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-  };
-
+  // Use useLocation to get the current route
+  const location = useLocation();
+  
   useEffect(() => {
     getCurrentUser().then((user) => {
       setUser(user);
       console.log(user);
     });
-  });
+  }, []);
 
-  const handleSignOut = () => {
-    signOut().then(() => {
-      setUser(null);
-    });
-  };
 
   return (
     <>
@@ -74,9 +65,8 @@ export default function Navbar() {
                 {/* Update active class dynamically */}
                 <Link
                   to="/"
-                  onClick={() => handleLinkClick("/")}
                   className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
-                    activeLink === "/"
+                    location.pathname === "/"
                       ? "border-indigo-500 text-gray-900"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   }`}
@@ -85,9 +75,8 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/products"
-                  onClick={() => handleLinkClick("/products")}
                   className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
-                    activeLink === "/products"
+                    location.pathname.startsWith("/products") // Check if the current path starts with /products
                       ? "border-indigo-500 text-gray-900"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   }`}
@@ -96,9 +85,8 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/categories"
-                  onClick={() => handleLinkClick("/categories")}
                   className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
-                    activeLink === "/categories"
+                    location.pathname.startsWith("/categories") // Check if the current path starts with /categories
                       ? "border-indigo-500 text-gray-900"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   }`}
@@ -180,16 +168,13 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* <BagModal open={isBagOpen} setOpen={setIsBagOpen} products={products} /> */}
-
         <DisclosurePanel className="md:hidden">
           <div className="space-y-1 pb-3 pt-2">
             <DisclosureButton
               as="a"
               href="/"
-              onClick={() => handleLinkClick("/")}
               className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6 ${
-                activeLink === "/"
+                location.pathname === "/"
                   ? "border-indigo-500 bg-indigo-50 text-indigo-700"
                   : "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
               }`}
@@ -199,9 +184,8 @@ export default function Navbar() {
             <DisclosureButton
               as="a"
               href="/products"
-              onClick={() => handleLinkClick("/products")}
               className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6 ${
-                activeLink === "/products"
+                location.pathname.startsWith("/products") // Check if the current path starts with /products
                   ? "border-indigo-500 bg-indigo-50 text-indigo-700"
                   : "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
               }`}
@@ -211,9 +195,8 @@ export default function Navbar() {
             <DisclosureButton
               as="a"
               href="/categories"
-              onClick={() => handleLinkClick("/categories")}
               className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6 ${
-                activeLink === "/categories"
+                location.pathname.startsWith("/categories") // Check if the current path starts with /categories
                   ? "border-indigo-500 bg-indigo-50 text-indigo-700"
                   : "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
               }`}

@@ -4,7 +4,6 @@ import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../lib/firebase';
 import Spinner from '../components/Spinner';
-import NoData from '../components/NoData';
 
 export default function OrderPage() {
   const [user, setUser] = useState({});
@@ -30,9 +29,19 @@ export default function OrderPage() {
     return <Spinner />;
   }
 
-  if (orders.length === 0) {
-    return <NoData />;
+  if (!orders.length) {
+    return (
+      <div className="bg-white">
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:px-0">
+          <h1 className="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Order history</h1>
+          <div className="mt-12 text-center">
+            <p className="text-lg text-gray-500">You have no recent orders.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
+  
   return (
     <div className="bg-white">
       <div className="py-16 sm:py-24">

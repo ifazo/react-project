@@ -39,7 +39,7 @@ export default function BagModal({ open, setOpen, products, name, email }) {
     });
 
     const session = await response.json();
-    // Redirect to Stripe Checkout
+    
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
     if (result.error) {

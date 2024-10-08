@@ -13,6 +13,8 @@ import SuccessPage from "../pages/SuccessPage";
 import CancelPage from "../pages/CancelPage";
 import OrderPage from "../pages/OrderPage";
 import CategoryPage from "../pages/CategoryPage";
+import CartPage from "../pages/CartPage";
+import ProfilePage from "../pages/ProfilePage";
 
 const router = createBrowserRouter([
     {
@@ -58,8 +60,16 @@ const router = createBrowserRouter([
                 element: <DashboardPage />
             },
             {
+                path: "/dashboard/cart",
+                element: <CartPage />
+            },
+            {
                 path: "/dashboard/orders",
                 element: <OrderPage />
+            },
+            {
+                path: "/dashboard/profile",
+                element: <ProfilePage />
             },
         ]
     },
