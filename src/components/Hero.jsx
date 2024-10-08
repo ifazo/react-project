@@ -1,51 +1,46 @@
+import { Link } from "react-router-dom";
+import { CoolModeDemo } from "./CoolMode";
+import { Marquee3D } from "./MarqueeImg";
+
 export default function Hero() {
   return (
     <div className="relative bg-white">
       <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
-        <div className="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6">
+        <div className="px-6 pb-12 pt-6 sm:pb-16 lg:col-span-7 lg:px-0 lg:pb-24 lg:pt-20 xl:col-span-6">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <img
-              alt=""
-              src="/logo.png"
-              className="h-11"
-            />
-            <div className="hidden sm:mt-32 sm:flex lg:mt-16">
+            <div className="flex items-center">
+              <img
+                alt=""
+                src="/logo.png"
+                className="h-11"
+              />
+              <span className="ml-2 text-2xl font-bold text-gray-900">SHOP</span> {/* Added "Mart" */}
+            </div>
+            <div className="hidden sm:mt-16 sm:flex lg:mt-8">
               <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                Anim aute id magna aliqua ad ad non deserunt sunt.{' '}
-                <a href="#" className="whitespace-nowrap font-semibold text-indigo-600">
+                Welcome to our online shop {"   "}
+                <Link to="/sign-up" className="whitespace-nowrap font-semibold text-indigo-600">
                   <span aria-hidden="true" className="absolute inset-0" />
-                  Read more <span aria-hidden="true">&rarr;</span>
-                </a>
+                  sign up <span aria-hidden="true">&rarr;</span>
+                </Link>
               </div>
             </div>
-            <h1 className="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">
-              Data to enrich your online business
+            <h1 className="mt-10 text-3xl font-bold tracking-tight text-gray-900 sm:mt-6 sm:text-5xl">
+              Online shop for all your needs
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat fugiat aliqua.
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              Every product is designed to be the best in its category. We are committed to providing the best products for our customers.
             </p>
-            <div className="mt-10 flex items-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Get started
-              </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                Learn more <span aria-hidden="true">→</span>
-              </a>
+            <div className="mt-6 flex items-center gap-x-6">
+              <CoolModeDemo />
+              <Link to="/sign-in" className="text-sm font-semibold leading-6 text-gray-900">
+                Get started <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </div>
         <div className="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
-          <video
-            src="https://www.example.com/your-video.mp4"
-            className="aspect-[3/2] w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-            autoPlay
-            muted
-            loop
-          />
+          <Marquee3D />
         </div>
       </div>
     </div>
