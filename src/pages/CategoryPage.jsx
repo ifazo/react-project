@@ -13,8 +13,7 @@ export default function CategoryPage() {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/products?category=${slug}`);
                 const data = await response.json();
-                console.log(data);
-                setProducts(data);
+                setProducts(data?.products);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching products:', error);
