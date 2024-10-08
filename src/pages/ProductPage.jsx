@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../store/features/productSlice";
 import toast from "react-hot-toast";
 import ProductShare from "../components/ProductShare";
+import Spinner from "../components/Spinner";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,6 +20,7 @@ export default function ProductPage() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -26,12 +28,13 @@ export default function ProductPage() {
       .then((res) => res.json())
       .then((data) => {
         setProduct(data)
+        setLoading(false)
       });
   }, [id]);
 
-  if (!product.images || !product.tags) {
-    return <div class="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>;
-  }  
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="bg-white">

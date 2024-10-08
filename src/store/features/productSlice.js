@@ -8,7 +8,7 @@ const productSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const existingProduct = state.products.find(
-        (product) => product.id === action.payload.id,
+        (product) => product._id === action.payload._id,
       );
 
       if (existingProduct) {
@@ -19,7 +19,7 @@ const productSlice = createSlice({
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
-        (product) => product.id !== action.payload.id,
+        (product) => product._id !== action.payload._id,
       );
     },
     clearProducts: (state) => {

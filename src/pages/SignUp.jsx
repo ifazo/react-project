@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithGithub, signInWithGoogle, signUp } from "../lib/firebase";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/features/userSlice";
 
 export default function SignUp() {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
@@ -27,6 +27,7 @@ export default function SignUp() {
         const user = userCredential.user;
         dispatch(setUser(user));
         toast.success("Account created successfully");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -41,6 +42,7 @@ export default function SignUp() {
         const user = userCredential.user;
         dispatch(setUser(user));
         toast.success("Account created successfully");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +57,7 @@ export default function SignUp() {
         const user = userCredential.user;
         dispatch(setUser(user));
         toast.success("Account created successfully");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -64,21 +67,8 @@ export default function SignUp() {
 
   return (
     <div className="h-full bg-gray-50">
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
-          />
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign up to your account
           </h2>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const CheckCircleIcon = () => (
   <svg
@@ -129,7 +130,7 @@ const SuccessPage = () => {
   };
 
   if (!sessionDetails) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   const lineItems = Array.isArray(sessionDetails?.line_items?.data)

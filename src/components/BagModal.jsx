@@ -13,14 +13,14 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
-export default function BagModal({ open, setOpen, products }) {
+export default function BagModal({ open, setOpen, products, name, email }) {
   
   const dispatch = useDispatch();
 
   const subTotal = products.reduce(
     (total, product) => total + product.price * product.quantity,
     0
-  );
+  ).toFixed(2);
 
   const handleRemoveProduct = (product) => {
     dispatch(removeProduct(product));
@@ -35,7 +35,7 @@ export default function BagModal({ open, setOpen, products }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ products }),
+      body: JSON.stringify({ products, name, email }),
     });
 
     const session = await response.json();
@@ -94,7 +94,7 @@ export default function BagModal({ open, setOpen, products }) {
                           className="-my-6 divide-y divide-gray-200"
                         >
                           {products.map((product) => (
-                            <li key={product.id} className="flex py-6">
+                            <li key={product._id} className="flex py-6">
                               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                 <img
                                   src={product.thumbnail}
@@ -107,7 +107,7 @@ export default function BagModal({ open, setOpen, products }) {
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
-                                      <a href={`/products/${product.id}`}>
+                                      <a href={`/products/${product._id}`}>
                                         {product.title}
                                       </a>
                                     </h3>

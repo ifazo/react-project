@@ -11,6 +11,8 @@ import CategoriesPage from "../pages/CategoriesPage";
 import DashboardPage from "../pages/DashboardPage";
 import SuccessPage from "../pages/SuccessPage";
 import CancelPage from "../pages/CancelPage";
+import OrderPage from "../pages/OrderPage";
+import CategoryPage from "../pages/CategoryPage";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +36,10 @@ const router = createBrowserRouter([
                 element: <CategoriesPage />
             },
             {
+                path: "/categories/:slug",
+                element: <CategoryPage />
+            },
+            {
                 path: "/sign-in",
                 element: <SignIn />
             },
@@ -50,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <DashboardPage />
+            },
+            {
+                path: "/dashboard/orders",
+                element: <OrderPage />
             },
         ]
     },

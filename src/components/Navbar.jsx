@@ -18,10 +18,6 @@ import { Link } from "react-router-dom";
 import { getCurrentUser, signOut } from "../lib/firebase";
 import BagModal from "./BagModal";
 import { useSelector } from "react-redux";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-
-const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState("/");
@@ -29,6 +25,7 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   // const user = useSelector((state) => state.user.user);
   const products = useSelector((state) => state.products.products);
+  
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -49,7 +46,7 @@ export default function Navbar() {
 
   return (
     <>
-      <BagModal open={isBagOpen} setOpen={setIsBagOpen} products={products} />
+      <BagModal open={isBagOpen} setOpen={setIsBagOpen} products={products} name={user?.displayName} email={user?.email} />
 
       <Disclosure as="nav" className="bg-white shadow">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -107,17 +104,6 @@ export default function Navbar() {
                   }`}
                 >
                   Categories
-                </Link>
-                <Link
-                  to="/blogs"
-                  onClick={() => handleLinkClick("/blogs")}
-                  className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
-                    activeLink === "/blogs"
-                      ? "border-indigo-500 text-gray-900"
-                      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  }`}
-                >
-                  Blogs
                 </Link>
               </div>
             </div>
@@ -233,18 +219,6 @@ export default function Navbar() {
               }`}
             >
               Categories
-            </DisclosureButton>
-            <DisclosureButton
-              as="a"
-              href="/blogs"
-              onClick={() => handleLinkClick("/blogs")}
-              className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6 ${
-                activeLink === "/blogs"
-                  ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                  : "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              }`}
-            >
-              Blogs
             </DisclosureButton>
           </div>
         </DisclosurePanel>

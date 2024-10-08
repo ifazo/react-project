@@ -23,6 +23,8 @@ import {
 } from "@heroicons/react/20/solid";
 import ProductList from "../components/ProductList";
 import Pagination from "../components/Pagination";
+import NoData from "../components/NoData";
+import Spinner from "../components/Spinner";
 
 const sortOptions = [
   { name: "Title: Ascending", href: "#", current: true },
@@ -44,13 +46,14 @@ export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setProducts(data);
+        setLoading(false);
       });
   }, []);
 
@@ -58,13 +61,13 @@ export default function ProductsPage() {
     fetch("https://dummyjson.com/products/categories")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setCategories(data);
+        setLoading(false);
       });
   }, []);
 
-  if (!products.length) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <Spinner />;
   }
 
   return (
