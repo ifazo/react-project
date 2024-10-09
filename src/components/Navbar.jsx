@@ -14,12 +14,13 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom"; // Import useLocation
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useLocation
 import { getCurrentUser, signOut } from "../lib/firebase";
 import BagModal from "./BagModal";
 import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isBagOpen, setIsBagOpen] = useState(false);
   const [user, setUser] = useState(null);
   const products = useSelector((state) => state.products.products);
@@ -34,6 +35,12 @@ export default function Navbar() {
     });
   }, []);
 
+  const handleSignOut = () => {
+    signOut().then(() => {
+      setUser(null);
+      navigate("/");
+    });
+  };
 
   return (
     <>
