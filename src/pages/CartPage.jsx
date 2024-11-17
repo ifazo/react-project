@@ -4,11 +4,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../lib/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
 export default function CartPage() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -32,7 +33,10 @@ export default function CartPage() {
   
   const handlePayment = async () => {
     const stripe = await stripePromise;
-    
+    if (!user) {
+      toast.error("Please login to continue");
+      return navigate('/sign-in');
+    }
     const response = await fetch(`${import.meta.env.VITE_API_URL}/payment`, {
       method: 'POST',
       headers: {
@@ -153,7 +157,7 @@ export default function CartPage() {
                 }}
                 className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
-                Checkout
+                Checkout ${subTotal}
               </button>
             </div>
 

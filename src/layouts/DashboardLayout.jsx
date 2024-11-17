@@ -37,7 +37,7 @@ const navigation = [
 const routes = [
   { id: 1, name: "Home", href: "/", initial: "H" },
   { id: 2, name: "Products", href: "/products", initial: "P" },
-  { id: 3, name: "Blogs", href: "/blogs", initial: "B" },
+  { id: 3, name: "Categories", href: "/categories", initial: "C" },
 ];
 
 function classNames(...classes) {
@@ -66,7 +66,6 @@ export default function DashboardLayout() {
     });
   };
 
-  // Set current state for navigation links
   const navigationWithCurrent = navigation.map((item) => ({
     ...item,
     current: item.href === currentPath, // Check if the href matches the current path

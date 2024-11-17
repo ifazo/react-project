@@ -4,17 +4,12 @@ import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../lib/firebase';
 import Spinner from '../components/Spinner';
+import { useSelector } from 'react-redux';
 
 export default function OrderPage() {
-  const [user, setUser] = useState({});
+  const user = useSelector((state) => state.user.user);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getCurrentUser().then((user) => {
-      setUser(user);
-    });
-  }, []);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/orders?email=${user?.email}`)

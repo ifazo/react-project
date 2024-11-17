@@ -7,14 +7,14 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { removeProduct } from "../store/features/productSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
-export default function BagModal({ open, setOpen, products, name, email }) {
-  
+export default function CartModal({ open, setOpen, products, name, email }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const subTotal = products.reduce(
@@ -29,7 +29,13 @@ export default function BagModal({ open, setOpen, products, name, email }) {
   
   const handlePayment = async () => {
     const stripe = await stripePromise;
-    
+    if (!stripe) {
+      return;
+    }
+    if (!name || !email) {
+      toast.error("Please sign in to continue");
+      return navigate("/sign-in");
+    }
     const response = await fetch(`${import.meta.env.VITE_API_URL}/payment`, {
       method: 'POST',
       headers: {
@@ -83,7 +89,7 @@ export default function BagModal({ open, setOpen, products, name, email }) {
                   {products.length === 0 ? (
                     <div className="flex items-center justify-center h-full">
                       <p className="text-gray-500 text-lg">
-                        No products in Bag
+                        No products in the cart
                       </p>
                     </div>
                   ) : (
