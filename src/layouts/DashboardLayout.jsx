@@ -26,12 +26,13 @@ import {
 } from "@heroicons/react/20/solid";
 import { Outlet } from "react-router-dom";
 import { getCurrentUser, signOut } from "../lib/firebase";
+import { useSelector } from "react-redux";
+import { removeUser } from "@/store/features/userSlice";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   { name: "Cart", href: "/dashboard/cart", icon: ShoppingCartIcon },
   { name: "Orders", href: "/dashboard/orders", icon: BanknotesIcon },
-  { name: "Profile", href: "/dashboard/profile", icon: UserIcon },
 ];
 
 const routes = [
@@ -47,22 +48,15 @@ function classNames(...classes) {
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
+  const user = useSelector((state) => state.user.user);
 
-  // Get the current route to update the navigation
   const currentPath = location.pathname;
-
-  useEffect(() => {
-    getCurrentUser().then((user) => {
-      setUser(user);
-    });
-  }, []);
 
   const handleSignOut = () => {
     signOut().then(() => {
-      setUser(null);
-      navigate("/");
+      dispatch(removeUser());
+      navigate("/sign-in");
     });
   };
 
@@ -109,9 +103,9 @@ export default function DashboardLayout() {
                 </div>
               </TransitionChild>
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
-                <div className="flex h-16 shrink-0 items-center">
+                <Link to='/' className="flex h-16 shrink-0 items-center">
                   <img alt="" src="/logo.png" className="h-8 w-auto" />
-                </div>
+                </Link>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
@@ -196,9 +190,9 @@ export default function DashboardLayout() {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
+            <Link to='/' className="flex h-16 shrink-0 items-center">
               <img alt="" src="/logo.png" className="h-8 w-auto" />
-            </div>
+            </Link>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>

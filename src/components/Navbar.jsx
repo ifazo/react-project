@@ -13,6 +13,7 @@ import {
   ShoppingBagIcon,
   ShoppingCartIcon,
   SunIcon,
+  UserCircleIcon,
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -167,25 +168,21 @@ export default function Navbar() {
                         <MenuButton className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
-                          <img
-                            alt=""
-                            src={user.photoURL}
-                            className="h-8 w-8 rounded-full"
-                          />
+                          {user.photoURL ? (
+                            <img
+                              alt=""
+                              src={user.photoURL}
+                              className="h-8 w-8 rounded-full"
+                            />
+                          ) : (
+                            <UserCircleIcon className="h-8 w-8 rounded-full text-gray-400" />
+                          )}
                         </MenuButton>
                       </div>
                       <MenuItems
                         transition
                         className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                       >
-                        <MenuItem>
-                          <Link
-                            to="/dashboard/profile"
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                          >
-                            Profile
-                          </Link>
-                        </MenuItem>
                         <MenuItem>
                           <Link
                             to="/dashboard"
