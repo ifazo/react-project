@@ -14,6 +14,7 @@ import CancelPage from "../pages/CancelPage";
 import OrderPage from "../pages/OrderPage";
 import CategoryPage from "../pages/CategoryPage";
 import CartPage from "../pages/CartPage";
+import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
     {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: <PrivateRouter><DashboardLayout /></PrivateRouter>,
         children: [
             {
                 path: "/dashboard",
