@@ -8,7 +8,9 @@ export default function Reviews({ reviews }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-lg font-medium text-gray-900">Recent reviews</h2>
+          <h2 className="text-lg font-medium text-gray-900">
+            Customer reviews
+          </h2>
         <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">
           {reviews.map((review, index) => (
             <div
